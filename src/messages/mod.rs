@@ -10,6 +10,7 @@ pub mod register;
 pub mod registered;
 pub mod result;
 pub mod types;
+pub mod unregister;
 pub mod validator;
 pub mod welcome;
 pub mod yield_;
