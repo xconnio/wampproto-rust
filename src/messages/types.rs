@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fmt;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
@@ -70,3 +71,24 @@ impl From<String> for Value {
         Value::Str(val)
     }
 }
+
+#[derive(Debug)]
+pub struct Error {
+    pub message: String,
+}
+
+impl Error {
+    pub fn new<T: Into<String>>(msg: T) -> Self {
+        Error { message: msg.into() }
+    }
+}
+
+// Implement Display so errors print nicely
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "MyError: {}", self.message)
+    }
+}
+
+// Implement the std::error::Error trait
+impl std::error::Error for Error {}
