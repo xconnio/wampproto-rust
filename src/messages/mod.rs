@@ -13,6 +13,7 @@ pub mod register;
 pub mod registered;
 pub mod result;
 pub mod subscribe;
+pub mod subscribed;
 pub mod types;
 pub mod unregister;
 pub mod unregistered;
