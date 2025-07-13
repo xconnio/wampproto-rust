@@ -4,6 +4,7 @@ pub mod call;
 pub mod challenge;
 pub mod goodbye;
 pub mod hello;
+pub mod invocation;
 pub mod message;
 pub mod types;
 pub mod validator;
