@@ -7,6 +7,7 @@ pub mod hello;
 pub mod invocation;
 pub mod message;
 pub mod register;
+pub mod registered;
 pub mod result;
 pub mod types;
 pub mod validator;
