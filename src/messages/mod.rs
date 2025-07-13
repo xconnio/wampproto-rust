@@ -17,6 +17,7 @@ pub mod subscribed;
 pub mod types;
 pub mod unregister;
 pub mod unregistered;
+pub mod unsubscribe;
 pub mod validator;
 pub mod welcome;
 pub mod yield_;
