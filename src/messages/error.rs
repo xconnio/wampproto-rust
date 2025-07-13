@@ -17,7 +17,7 @@ const VALIDATION_SPEC: ValidationSpec = ValidationSpec {
 
 #[derive(Debug)]
 pub struct Error {
-    pub message_type: i64,
+    pub message_type: Value,
     pub request_id: i64,
     pub options: HashMap<String, Value>,
     pub uri: String,
@@ -37,7 +37,7 @@ impl Message for Error {
     fn marshal(&self) -> Vec<Value> {
         let mut result = vec![
             MESSAGE_TYPE_ERROR,
-            Value::Int(self.message_type),
+            self.message_type.clone(),
             Value::Int(self.request_id),
             Value::Dict(self.options.clone()),
             Value::Str(self.uri.clone()),
@@ -71,7 +71,7 @@ impl Message for Error {
             ] = &data[..]
             {
                 Ok(Box::new(Error {
-                    message_type: *message_type,
+                    message_type: Value::Int(message_type.to_owned()),
                     request_id: *request_id,
                     options: options.clone(),
                     uri: uri.clone(),
@@ -93,7 +93,7 @@ impl Message for Error {
             ] = &data[..]
             {
                 Ok(Box::new(Error {
-                    message_type: *message_type,
+                    message_type: Value::Int(message_type.to_owned()),
                     request_id: *request_id,
                     options: options.clone(),
                     uri: uri.clone(),
@@ -113,7 +113,7 @@ impl Message for Error {
         ] = &data[..]
         {
             Ok(Box::new(Error {
-                message_type: *message_type,
+                message_type: Value::Int(message_type.to_owned()),
                 request_id: *request_id,
                 options: options.clone(),
                 uri: uri.clone(),
