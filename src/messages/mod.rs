@@ -1,10 +1,13 @@
 pub mod abort;
 pub mod authenticate;
 pub mod call;
+pub mod cancel;
 pub mod challenge;
+pub mod error;
 pub mod event;
 pub mod goodbye;
 pub mod hello;
+pub mod interrupt;
 pub mod invocation;
 pub mod message;
 pub mod publish;
