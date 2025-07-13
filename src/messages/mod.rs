@@ -1,5 +1,6 @@
 pub mod abort;
 pub mod authenticate;
+pub mod call;
 pub mod challenge;
 pub mod goodbye;
 pub mod hello;
