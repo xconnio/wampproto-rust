@@ -1,3 +1,4 @@
+pub mod goodbye;
 pub mod hello;
 pub mod message;
 pub mod types;
