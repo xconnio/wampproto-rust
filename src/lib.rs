@@ -1,4 +1,5 @@
 pub mod authenticators;
+pub mod idgen;
 pub mod joiner;
 pub mod messages;
 pub mod serializers;
