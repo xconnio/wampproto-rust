@@ -3,6 +3,7 @@ pub mod authenticate;
 pub mod call;
 pub mod cancel;
 pub mod challenge;
+pub mod error;
 pub mod event;
 pub mod goodbye;
 pub mod hello;
