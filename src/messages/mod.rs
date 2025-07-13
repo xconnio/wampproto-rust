@@ -1,9 +1,17 @@
 pub mod abort;
 pub mod authenticate;
+pub mod call;
 pub mod challenge;
 pub mod goodbye;
 pub mod hello;
+pub mod invocation;
 pub mod message;
+pub mod register;
+pub mod registered;
+pub mod result;
 pub mod types;
+pub mod unregister;
+pub mod unregistered;
 pub mod validator;
 pub mod welcome;
+pub mod yield_;
