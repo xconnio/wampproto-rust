@@ -1,4 +1,5 @@
 pub mod abort;
+pub mod challenge;
 pub mod goodbye;
 pub mod hello;
 pub mod message;
