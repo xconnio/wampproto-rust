@@ -6,6 +6,7 @@ pub mod goodbye;
 pub mod hello;
 pub mod invocation;
 pub mod message;
+pub mod publish;
 pub mod register;
 pub mod registered;
 pub mod result;
