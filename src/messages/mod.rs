@@ -7,6 +7,7 @@ pub mod error;
 pub mod event;
 pub mod goodbye;
 pub mod hello;
+pub mod interrupt;
 pub mod invocation;
 pub mod message;
 pub mod publish;
