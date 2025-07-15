@@ -3,7 +3,7 @@ use crate::messages;
 use messages::types::{Error, Value};
 use std::any::Any;
 
-pub trait Message {
+pub trait Message: Send {
     fn as_any(&self) -> &dyn Any;
     fn message_type(&self) -> Value;
     fn marshal(&self) -> Vec<Value>;
