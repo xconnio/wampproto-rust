@@ -2,6 +2,7 @@ use std::sync::Mutex;
 
 const MAX_ID: i64 = 1 << 53;
 
+#[derive(Debug)]
 pub struct SessionScopeIDGenerator {
     id: Mutex<i64>,
 }
