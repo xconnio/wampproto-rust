@@ -5,18 +5,18 @@ pub const PROTOCOL_MAX_MSG_SIZE: usize = 1 << 24;
 pub const DEFAULT_MAX_MSG_SIZE: usize = 1 << 20;
 
 #[derive(Debug, Clone, Copy)]
-pub enum Serializer {
-    Json = 1,
-    Msgpack = 2,
-    Cbor = 3,
+pub enum SerializerID {
+    JSON = 1,
+    MSGPACK = 2,
+    CBOR = 3,
 }
 
-impl Serializer {
-    pub fn from_u8(value: u8) -> Option<Serializer> {
+impl SerializerID {
+    pub fn from_u8(value: u8) -> Option<SerializerID> {
         match value {
-            1 => Some(Serializer::Json),
-            2 => Some(Serializer::Msgpack),
-            3 => Some(Serializer::Cbor),
+            1 => Some(SerializerID::JSON),
+            2 => Some(SerializerID::MSGPACK),
+            3 => Some(SerializerID::CBOR),
             _ => None,
         }
     }
@@ -42,20 +42,20 @@ impl Message {
 
 #[derive(Debug)]
 pub struct Handshake {
-    serializer: Serializer,
+    serializer_id: SerializerID,
     max_message_size: usize,
 }
 
 impl Handshake {
-    pub fn new(serializer: Serializer, max_message_size: usize) -> Self {
+    pub fn new(serializer: SerializerID, max_message_size: usize) -> Self {
         Handshake {
-            serializer,
+            serializer_id: serializer,
             max_message_size,
         }
     }
 
-    pub fn serializer(&self) -> Serializer {
-        self.serializer
+    pub fn serializer_id(&self) -> SerializerID {
+        self.serializer_id
     }
 
     pub fn max_message_size(&self) -> usize {
@@ -73,7 +73,7 @@ pub fn send_handshake(hs: &Handshake) -> Result<Vec<u8>, Error> {
         return Err(Error::new("max_message_size must be a power of 2 and >= 512"));
     }
 
-    let b1 = ((log2 - 9) << 4) | ((hs.serializer() as u8) & 0x0F);
+    let b1 = ((log2 - 9) << 4) | ((hs.serializer_id() as u8) & 0x0F);
     Ok(vec![MAGIC, b1, 0x00, 0x00])
 }
 
@@ -96,7 +96,7 @@ pub fn receive_handshake(data: &[u8]) -> Result<Handshake, Error> {
         )));
     }
 
-    if let Some(serializer) = Serializer::from_u8(data[1] & 0x0F) {
+    if let Some(serializer) = SerializerID::from_u8(data[1] & 0x0F) {
         let size_shift = (data[1] >> 4) + 9;
         let max_message_size = 1 << size_shift;
 
