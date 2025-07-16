@@ -72,6 +72,24 @@ impl From<String> for Value {
     }
 }
 
+impl From<&[u8]> for Value {
+    fn from(val: &[u8]) -> Self {
+        Value::Bytes(val.to_vec())
+    }
+}
+
+impl<const N: usize> From<[u8; N]> for Value {
+    fn from(v: [u8; N]) -> Self {
+        Value::Bytes(v.to_vec())
+    }
+}
+
+impl From<Vec<u8>> for Value {
+    fn from(val: Vec<u8>) -> Self {
+        Value::Bytes(val.to_vec())
+    }
+}
+
 #[derive(Debug)]
 pub struct Error {
     pub message: String,
