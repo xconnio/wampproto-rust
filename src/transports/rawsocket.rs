@@ -6,17 +6,17 @@ pub const DEFAULT_MAX_MSG_SIZE: usize = 1 << 20;
 
 #[derive(Debug, Clone, Copy)]
 pub enum SerializerID {
-    Json = 1,
-    Msgpack = 2,
-    Cbor = 3,
+    JSON = 1,
+    MSGPACK = 2,
+    CBOR = 3,
 }
 
 impl SerializerID {
     pub fn from_u8(value: u8) -> Option<SerializerID> {
         match value {
-            1 => Some(SerializerID::Json),
-            2 => Some(SerializerID::Msgpack),
-            3 => Some(SerializerID::Cbor),
+            1 => Some(SerializerID::JSON),
+            2 => Some(SerializerID::MSGPACK),
+            3 => Some(SerializerID::CBOR),
             _ => None,
         }
     }
