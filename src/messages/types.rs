@@ -109,6 +109,12 @@ impl From<Vec<u8>> for Value {
     }
 }
 
+impl From<ByteArray> for Value {
+    fn from(val: ByteArray) -> Self {
+        Value::Bytes(val)
+    }
+}
+
 #[derive(Debug)]
 pub struct Error {
     pub message: String,
