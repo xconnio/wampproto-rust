@@ -1,6 +1,25 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fmt;
+use std::ops::{Deref, DerefMut};
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[serde(transparent)]
+pub struct ByteArray(#[serde(with = "serde_bytes")] pub Vec<u8>);
+
+impl Deref for ByteArray {
+    type Target = Vec<u8>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl DerefMut for ByteArray {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
@@ -12,7 +31,7 @@ pub enum Value {
     Str(String),
     List(Vec<Value>),
     Dict(HashMap<String, Value>),
-    Bytes(Vec<u8>),
+    Bytes(ByteArray),
 }
 
 impl Value {
@@ -74,19 +93,19 @@ impl From<String> for Value {
 
 impl From<&[u8]> for Value {
     fn from(val: &[u8]) -> Self {
-        Value::Bytes(val.to_vec())
+        Value::Bytes(ByteArray(val.to_vec()))
     }
 }
 
 impl<const N: usize> From<[u8; N]> for Value {
-    fn from(v: [u8; N]) -> Self {
-        Value::Bytes(v.to_vec())
+    fn from(val: [u8; N]) -> Self {
+        Value::Bytes(ByteArray(val.to_vec()))
     }
 }
 
 impl From<Vec<u8>> for Value {
     fn from(val: Vec<u8>) -> Self {
-        Value::Bytes(val.to_vec())
+        Value::Bytes(ByteArray(val.to_vec()))
     }
 }
 
