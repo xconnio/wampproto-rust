@@ -90,11 +90,11 @@ impl Session {
 
                 MESSAGE_TYPE_PUBLISH => {
                     let publish = msg.as_any().downcast_ref::<Publish>().unwrap();
-                    if let Some(Value::Bool(acknowledge)) = publish.options.get("acknowledge") {
-                        if *acknowledge {
-                            let mut map = self.publish_requests.lock().unwrap();
-                            map.insert(publish.request_id);
-                        }
+                    if let Some(Value::Bool(acknowledge)) = publish.options.get("acknowledge")
+                        && *acknowledge
+                    {
+                        let mut map = self.publish_requests.lock().unwrap();
+                        map.insert(publish.request_id);
                     }
 
                     Ok(data)
